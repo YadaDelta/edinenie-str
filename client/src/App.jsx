@@ -1,50 +1,29 @@
-import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import axios from "axios";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Main from "./pages/Main";
+import Profile from "./pages/Profile";
+import House from "./pages/House";
+import Apartment from "./pages/Apartment";
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [array, setArray] = useState([]);
-
-  const fetchAPI = async () => {
-    const response = await axios.get("http://localhost:8080/api");
-    setArray(response.data.fruits);
-    console.log(response.data.fruits);
+const App = () => {
+  const [user, setUser] = useState(null);
+  console.log(user);
+  const handleLogin = (userData) => {
+    setUser(userData);
   };
 
-  useEffect(() => {
-    fetchAPI();
-  }, []);
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        {array.map((fruit, index) => {
-          <div key={index}>
-            <p>{fruit}!</p>
-            <br></br>
-          </div>;
-        })}
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login onLogin={handleLogin} />} />
+      <Route path="/profile" element={<Profile user={user} />} />
+      <Route path="/" element={<Main />} />
+      <Route path="/houses/:id" element={<House />} />
+      <Route path="/apartments/:id" element={<Apartment user={user} />} />
+    </Routes>
   );
-}
+};
 
 export default App;
