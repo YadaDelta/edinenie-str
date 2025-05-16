@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import LayoutGraphic from "../components/LayoutGraphic";
+import Nav from "../components/Nav";
 
 const Apartment = ({ user }) => {
   const { id } = useParams();
   const [apartment, setApartment] = useState(null);
-  console.log(user);
+  console.log(apartment);
   useEffect(() => {
     const fetchApartment = async () => {
       const response = await axios.get(
@@ -36,18 +38,32 @@ const Apartment = ({ user }) => {
 
   return (
     <>
-      <div>
-        Информация о квартире:
-        <h1>{apartment.number}</h1>
-        Цена: {apartment.price}
+      <Nav />
+      <div className="hero-container">
+        <div className="hero-content">
+          <div className="text-section">
+            <h2>Информация об объекте:</h2>
+            <p>{apartment.house_name}</p>
+            <p>
+              {apartment.type}, номер {apartment.number}
+            </p>
+            <p>Площадь {apartment.area} м2.</p>
+            <div>Цена: {apartment.price}</div>
+            {user ? (
+              <form onSubmit={handleSubmit}>
+                <button type="submit">Забронировать</button>
+              </form>
+            ) : (
+              <div>
+                Зарегистрируйтесь для возможности бронирования квартиры.
+              </div>
+            )}
+            <div>
+              <LayoutGraphic apt_number={apartment.number} />
+            </div>
+          </div>
+        </div>
       </div>
-      {user ? (
-        <form onSubmit={handleSubmit}>
-          <button type="submit">Забронировать</button>
-        </form>
-      ) : (
-        <div>Зарегистрируйтесь для возможности бронирования квартиры.</div>
-      )}
     </>
   );
 };

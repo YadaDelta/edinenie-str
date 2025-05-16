@@ -74,3 +74,284 @@
 .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
+
+.hero-container {
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 20px 10px;
+  background-color: #f4ebe4;
+  border-radius: 40px;
+  max-width: 1200px;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-left: 40px;
+  flex-wrap: wrap;
+}
+
+.text-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.text-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.text-section p {
+  font-size: 1.2rem;
+}
+
+.image-section {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.image-section img {
+  max-height: 500px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+  border-radius: 16px;
+}
+
+.active-projects-container {
+  margin: 0 auto;
+  margin-top: 15px;
+  padding: 20px 10px;
+  background-color: #f4ebe4;
+  border-radius: 40px;
+  max-width: 1200px;
+}
+
+.active-projects-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  flex-wrap: wrap; /* для адаптивности */
+}
+
+/* Левая часть */
+.left-section {
+  flex: 1;
+  padding-left: 40px;
+}
+.left-section h2 {
+  font-size: 2rem;
+}
+
+/* Правая часть */
+.right-section {
+  flex: 2;
+  margin-left: 95px;
+
+  display: flex;
+  gap: 10px; /* расстояние между карточками */
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 200px; /* ширина карточки */
+
+  text-decoration: none; /* убрать подчеркивание ссылок */
+
+  border-radius: 8px;
+
+  transition: transform 0.3s, box-shadow 0.3s; /* плавный переход */
+  cursor: pointer; /* курсор при наведении */
+}
+
+/* Эффект при наведении */
+.project-card:hover {
+  transform: translateY(-10px) scale(1.02); /* сдвиг вверх и немного увеличение */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* легкая тень для подсветки */
+}
+
+.project-image-wrapper {
+  position: relative; /* чтобы позиционировать внутри */
+  width: 200px; /* или ваш размер */
+  height: 400px; /* фиксированная высота для обрезки */
+  overflow: hidden; /* чтобы обрезать изображение по размеру */
+  border-radius: 8px;
+}
+
+.project-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* чтобы изображение заполняло контейнер и было обрезано по краям */
+}
+
+.project-info {
+  padding-top: 10px;
+  text-align: center; /* по центру текста внутри карточки */
+}
+
+.project-info-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* по вертикали */
+  align-items: center; /* по горизонтали */
+
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.4
+  ); /* полупрозрачный фон для читаемости текста */
+
+  color: #fff; /* цвет текста */
+}
+
+.project-info-overlay h4 {
+  padding-left: 10px;
+}
+
+.site-footer {
+  background-color: #222; /* темный фон */
+  color: #fff; /* светлый текст */
+  padding: 40px 20px;
+  margin-top: 15px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Логотип или название */
+.footer-logo {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo h2 {
+  font-size: 1.5rem;
+}
+
+/* Контактная информация */
+.footer-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-info p {
+  margin: 8px 0;
+}
+
+/* Быстрые ссылки */
+.footer-links {
+  flex: 1;
+  min-width: 200px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* Социальные сети */
+.footer-social {
+  flex: 1;
+  min-width: 200px;
+
+  display: flex;
+  gap: 10px; /* расстояние между иконками/ссылками */
+}
+
+.footer-social a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-social a:hover {
+  text-decoration: underline;
+}
+
+/* Нижняя часть с копирайтом */
+.footer-bottom {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.center-h {
+  text-align: center;
+}
+
+.aptBlock {
+  display: flex;
+  justify-content: center; /* по горизонтали */
+  align-items: center; /* по вертикали */
+  margin-bottom: 30px;
+}
+
+.aptGallery {
+  width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  gap: 16px; /* расстояние между карточками */
+}
+
+.aptCard {
+  width: 225px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: 8px;
+
+  /* Можно добавить тень или границу */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* Для подсветки при наведении (по желанию) */
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  overflow: hidden;
+}
+
+.aptCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.aptCardImage {
+  height: 150px;
+  object-fit: cover;
+}
+
+.aptCardInfo {
+  padding: 10px;
+  padding-top: 0px;
+}
+
+.aptLink {
+  text-decoration: none;
+  color: black;
+}

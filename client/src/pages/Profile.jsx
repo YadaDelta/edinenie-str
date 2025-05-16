@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Nav from "../components/Nav";
 
 const UserProfile = ({ user }) => {
   const [apartments, setApartments] = useState(null);
@@ -23,16 +24,19 @@ const UserProfile = ({ user }) => {
   if (!apartments) return <div>Загрузка...</div>;
 
   return (
-    <div>
-      <h1>Личный кабинет</h1>
-      <p>Имя пользователя: {user.username}</p>
-      Забронированные квартиры:
-      {apartments.map((item) => (
-        <div key={item.apartment_id}>
-          <Link to={`/apartments/${item.apartment_id}`}>{item.number}</Link>
-        </div>
-      ))}
-    </div>
+    <>
+      <Nav />
+      <div>
+        <h1>Личный кабинет</h1>
+        <p>Имя пользователя: {user.username}</p>
+        Забронированные квартиры:
+        {apartments.map((item) => (
+          <div key={item.apartment_id}>
+            <Link to={`/apartments/${item.apartment_id}`}>{item.number}</Link>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 

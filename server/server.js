@@ -74,6 +74,36 @@ app.post("/api/auth/login", async (req, res) => {
   );
 });
 
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+
+  if (!token) {
+    return res.status(401).json({ message: "Токен отсутствует" });
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "Недопустимый токен" });
+    }
+    req.user = user;
+    next();
+  });
+}
+
+app.get("/api/auth/me", authenticateToken, (req, res) => {
+  const userId = req.user.id;
+  db.get(
+    `SELECT username, id FROM users WHERE id = ?`,
+    [userId],
+    (err, user) => {
+      if (err || !user)
+        return res.status(404).json({ message: "Пользователь не найден" });
+      res.json(user);
+    }
+  );
+});
+
 app.post("/api/book/apartment", async (req, res) => {
   const { user_id, apt_id } = req.body;
   try {
@@ -126,8 +156,8 @@ app.get("/api/houses", (req, res) => {
 app.get("/api/houses/:id", (req, res) => {
   const id = req.params.id;
   const query = `
-      SELECT houses.house_id AS houseId, houses.address AS houseAdress,
-             apartments.apartment_id AS aptId, apartments.number AS aptNumber
+      SELECT houses.house_id AS houseId, houses.address AS houseAdress, houses.description AS description, houses.description_image AS image,
+             apartments.apartment_id AS aptId, apartments.number AS aptNumber, apartments.type AS aptType, apartments.thumbnail AS aptImage, apartments.price AS aptPrice, apartments.area AS aptArea
       FROM houses
       LEFT JOIN apartments ON houses.house_id = apartments.house_id
       WHERE houses.house_id = ?`;
@@ -141,10 +171,16 @@ app.get("/api/houses/:id", (req, res) => {
     const item = {
       id: rows[0]?.houseId,
       address: rows[0]?.houseAdress,
+      description: rows[0]?.description,
+      image: rows[0]?.image,
       apartments: rows
         .map((row) => ({
           id: row.aptId,
           number: row.aptNumber,
+          type: row.aptType,
+          thumbnail: row.aptImage,
+          area: row.aptArea,
+          price: row.aptPrice,
         }))
         .filter((item) => item.id !== null),
     };
@@ -156,7 +192,7 @@ app.get("/api/houses/:id", (req, res) => {
 app.get("/api/apartments/:id", (req, res) => {
   const id = req.params.id;
   db.get(
-    "SELECT * FROM apartments WHERE apartment_id = ?",
+    "SELECT a.*, h.address AS house_name FROM apartments a LEFT JOIN houses h ON a.house_id = h.house_id WHERE a.apartment_id = ?",
     [id],
     (err, row) => {
       if (err) {
